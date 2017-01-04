@@ -1,2 +1,2 @@
-import selection
-import playback
+import geemusic.intents.selection
+import geemusic.intents.playback
