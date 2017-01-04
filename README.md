@@ -118,7 +118,16 @@ Google account and only insert an application specific password into this file.
 Remember that it is stored in plaintext on your local computer! (TODO: fix
 this!)
 
-Once you have your `.env` file ready to go, let's start the server. I
+Now you need to create your SSL certificate files. To generate a self-signed certificate, issue the following commands:
+ 
+```
+$ openssl genrsa 1024 > server.key
+$ chmod 400 server.key
+$ openssl req -new -x509 -nodes -sha1 -days 365 -key server.key -out server.cert
+```
+You will need to fill in the certificate details when prompted.
+
+Once you have your `.env` file ready to go and have generated your self-signed SSL certificate, let's start the server. I
 personally use [Foreman](https://github.com/ddollar/foreman) to run the server,
 as it will automatically load the `.env` file into my environment and boot up
 the webserver. There are surely other ways of doing this, but if you'd like to
