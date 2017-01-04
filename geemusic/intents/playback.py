@@ -33,7 +33,7 @@ def nearly_finished():
 # Intents
 #
 @ask.intent('AMAZON.StartOverIntent')
-def resume():
+def start_over():
     next_id = queue.current()
 
     if next_id == None:
@@ -47,10 +47,16 @@ def resume():
 @ask.intent('AMAZON.ResumeIntent')
 def resume():
     api = GMusicWrapper.generate_api()
-    stream_url = api.get_stream_url(queue.current())
+    current_song_id = queue.current()
+
+    if current_song_id == None:
+        return audio('Nothing is currently playing')
+
+    stream_url = api.get_stream_url(current_song_id)
+
     offset = int(context['AudioPlayer']['offsetInMilliseconds'])
-    return audio('Resuming.').play(stream_url=stream_url,
-                                   offset=offset)
+    return audio('Resuming').play(stream_url=stream_url,
+                                  offset=offset)
 
 @ask.intent('AMAZON.PauseIntent')
 def pause():

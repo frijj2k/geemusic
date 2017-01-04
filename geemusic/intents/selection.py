@@ -57,8 +57,10 @@ def play_song(song_name, artist_name):
     if song == False:
         return statement("Sorry, I couldn't find that song")
 
+    song_id = queue.reset([song])
+
     # Start streaming the first track
-    stream_url = api.get_stream_url(song['storeId'])
+    stream_url = api.get_stream_url(song_id)
 
     speech_text = "Playing song %s by %s" % (song['title'], song['artist'])
     return audio(speech_text).play(stream_url)
